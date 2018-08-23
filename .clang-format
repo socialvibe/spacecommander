@@ -63,13 +63,13 @@ BraceWrapping:
     AfterClass: true
     AfterControlStatement: false
     AfterEnum: false
-    AfterFunction: true
+    AfterFunction: false
     AfterNamespace: true
     AfterObjCDeclaration: true
     AfterStruct: false
     AfterUnion: false
     BeforeCatch: false
-    BeforeElse: false
+    BeforeElse: true
     IndentBraces: false
 
 SpacesInParentheses: false
