@@ -10,6 +10,7 @@ Pod::Spec.new do |s|
   
   s.ios.deployment_target = "6.0"
   s.osx.deployment_target = "10.6"
+  s.tvos.deployment_target = "10.0"
 
   # Use this file to overcome CocoaPods limitation that at least one source file must be specified.
   s.source_files = "CocoaPodsDummy.m"
