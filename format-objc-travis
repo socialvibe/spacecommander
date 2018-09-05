@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Used by the build system to check formatting, and fail the build if changed files in a pull request are unformatted.
-# Takes a SHA argument, used to diff against in order to generate the list of files to inspect.
+# Takes a commit hash and git branch, and uses these parameters to generate the list of modified files to inspect.
 # Copyright 2015 Square, Inc
 
 IFS=$'\n'
@@ -15,18 +15,18 @@ RELATIVE_SCRIPTS_DIR="Pods/spacecommander"
 
 source "$DIR"/lib/common-lib.sh
 
-objc_files=$(objc_files_to_format "$1")
+objc_files=$(objc_files_to_format "$1" "$2")
 [ -z "$objc_files" ] && exit 0
 
 
 function format_objc() {
   success=0
   for file in $objc_files; do
-	difference=$("$DIR"/format-objc-file-dry-run.sh "$file" | diff "$file" - | wc -l)
-	
+  difference=$("$DIR"/format-objc-file-dry-run.sh "$file" | diff "$file" - | wc -l)
+  
     if [ $difference -gt 0 ]; then
-    	echo "$RELATIVE_SCRIPTS_DIR/format-objc-file.sh '$file' && git add '$file';"
-    	success=1
+      echo "$RELATIVE_SCRIPTS_DIR/format-objc-file.sh '$file' && git add '$file';"
+      success=1
     fi
   done
   return $success 
@@ -37,11 +37,11 @@ echo -e "\n#### Checking Objective-C Code Formatting ####\n"
 format_objc || (echo -e "There were formatting issues with this commit, fix by running the above commands." && success=1)
 
 if [ $success -eq 0 ]; then
-	echo -e "\n#### Objective-C Code Formatting: APPROVED ####\n"
+  echo -e "\n#### Objective-C Code Formatting: APPROVED ####\n"
 else
-	echo -e "\nOr, fixup files and stage them by running:\n\t$RELATIVE_SCRIPTS_DIR/format-objc-files.sh -s $1"
-	echo -e "\t(make sure you've installed the formatting checks first: $RELATIVE_SCRIPTS_DIR/setup-repo.sh )"
-	echo -e "\n#### Objective-C Code Formatting: FAILED ####\n"
+  echo -e "\nOr, fixup files and stage them by running:\n\t$RELATIVE_SCRIPTS_DIR/format-objc-files.sh -s $1"
+  echo -e "\t(make sure you've installed the formatting checks first: $RELATIVE_SCRIPTS_DIR/setup-repo.sh )"
+  echo -e "\n#### Objective-C Code Formatting: FAILED ####\n"
 fi
 
 exit $success
