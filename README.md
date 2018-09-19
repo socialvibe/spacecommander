@@ -1,3 +1,24 @@
+# True[X]'s fork of Space Commander
+We've made a few tweaks to Space Commander's code style in this fork, and also there is a bit of extra documentation at the top of this readme. The original contents of the readme follow below.
+
+## Integration with AppCode
+If you are using AppCode by JetBrains for your Objective-C development and want to seamlessly integrate SpaceCommander as your auto-formatting tool, you can do so by:
+
+1. Follow the installation instructions from the original Space Commander readme below.
+1. Open AppCode, and add an External Tool (Preferences > Tools > External Tools)
+1. Call it "SpaceCommander"
+1. In the "Program" field, enter `$ProjectFileDir$/Pods/SpaceCommander/format-objc-file.sh`
+1. For "Arguments", enter `"$FilePathRelativeToProjectRoot$"` (make sure to include those double-quotes)
+1. For "Working Directory", enter `$ProjectFileDir$`
+1. Save the External Tool
+1. Edit your Keymap (Preferences > Keymap)
+1. Find the new External Tool under External Tools
+1. Set its shortcut to something, e.g. override the default "Reformat Code" shortcut (Command+Option+L)
+
+Now you can hit this shortcut to auto-format the file that is currently open in your editor using SpaceCommander.
+
+# END -- True[X] additional content
+
 # [ Space Commander]
 
 **[ Space Commander]** provides tools which enable a team of iOS developers to commit Objective-C code to a git repository using a unified style format, without requiring any manual fixup.
