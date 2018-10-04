@@ -69,7 +69,7 @@ BraceWrapping:
     AfterStruct: false
     AfterUnion: false
     BeforeCatch: false
-    BeforeElse: true
+    BeforeElse: false
     IndentBraces: false
 
 SpacesInParentheses: false
